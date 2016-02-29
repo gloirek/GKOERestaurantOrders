@@ -62,62 +62,7 @@ public class OrderTreeMap {
 		return found;
 	}
 //public
-	/**
-	 * method to print bill by table number
-	 * @param tabl
-	 * @throws NoMatchingTableException
-	 */
-	public String printBillByTable(int table)throws NoMatchingTableException{
-		String report = "TABLE #" + table +"\n";
-		report += "------------\n";
-		String bill = "";
-		int countMeals = 0;
-		double total = 0;
-		double discount = 0;
-		double discountedTotal = 0;
-		
-		for (Map.Entry<Integer, Order> entry : orders.entrySet()){
-			try{
-				
-				if(table == entry.getValue().getTableNum()){
-					int quant = entry.getValue().getQuantity();
-					String dish = entry.getValue().getDish();
-					menuList.readFile("menu.csv");
-					double price = menuList.findDish(dish).getPrice();
-					double cost = quant*price;
-					total+=cost;
-					//total = calculateCost(table);
-					countMeals++;
 
-					bill += String.format("%-30s", entry.getValue().getDish());
-					bill += String.format("%15s", entry.getValue().getQuantity());
-					bill += "*" + String.format("%-15.2f", menuList.findDish(dish).getPrice());
-					bill += String.format("%-15.2f", cost);
-					bill += "\n";
-
-				}
-				//else if(table != entry.getValue().getTableNum()){
-				//	throw new NoMatchingTableException(table);
-					//bill = "Table No." +table +" is not found\n";
-				//}
-				
-			}catch (NullPointerException npe) {
-				String error = "Sorry there is no table or this order entry is " 
-						+ npe.getMessage();
-				System.out.println(error);
-			}
-
-		}
-		discount = calculateDiscount(total,countMeals);
-		discountedTotal = total - discount;
-		bill += "Total:   "+ String.format("%-50.2f", total)+ "\n";
-		bill += "Discount:   "+ String.format("%-55.2f", discount)+ "\n";
-		bill += "Discounted Total:   "+ String.format("%-60.2f", discountedTotal);
-		bill +="\n\n";
-
-
-		return (report + bill);
-	}
 	//a method to calculate the discount
 
 	/**
@@ -137,21 +82,6 @@ public class OrderTreeMap {
 		}
 		return discount;
 	}
-
-	public void printSummary() throws NoMatchingTableException{
-		System.out.println("SUMMARY FOR TODAY\n=================================\n");
-		for (Map.Entry<Integer, Order> entry : orders.entrySet()){
-			int tableNumber = entry.getValue().getTableNum();
-			String summary = printBillByTable(tableNumber);
-			System.out.print(summary);
-			
-		}
-	}
-
-
-
-
-
 
 	/**
 	 * @param key
