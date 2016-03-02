@@ -107,36 +107,30 @@ public class RestaurantGUI extends JFrame implements ActionListener
 		String bill = "";
 		if (e.getSource() == enterButton) {
 			int tableID = Integer.parseInt(tableNum.getText().trim());
+			//if(tableID > 0) {
 			try {
 				boolean found = orders.findTable(tableID);
-				
 
-			} catch (NoMatchingTableException e2) {
-				JOptionPane.showMessageDialog(this,e2.getMessage()+"\n Enter a correct table number");
-			}
-			
-				try {
-					bill = manager.printBillByTable(tableID);
-				} catch (NoMatchingTableException e1) {
-					JOptionPane.showMessageDialog(this,e1.getMessage()+"\n Enter a correct table number");
-					//e1.printStackTrace();
-				}
-				//this catches trying to convert a String to an integer
-				catch (NumberFormatException nfe) {
-					String error = "Sorry'" + tableID + "is not a valid table number" 
-							+ nfe.getMessage();
-					System.out.println(error);
-				}
-				try{
-					if(tableID != 0) {
+					if (found == true){
+						bill = manager.printBillByTable(tableID);
+					
 						displayBill.setText(bill);
-					}
-				}//this catches trying to convert a String to an integer
+					}}
+					
+					//else System.out.println("invalid!!");}
+				//}//this catches trying to convert a String to an integer
 				catch (NumberFormatException nfe) {
 					String error = "Sorry'" + tableID + "is not a valid table number" 
 							+ nfe.getMessage();
 					System.out.println(error);
-				}
+				} catch (NoMatchingTableException e1) {
+					String error = "Sorry'" + tableID + "is not a valid table number" 
+							+ e1.getMessage();
+					System.out.println(error);
+					//e1.printStackTrace();
+				}catch (NullPointerException e2){
+					JOptionPane.showMessageDialog(this,"Table No. "+tableID+" has no order");
+				}//}
 			}
 			if (e.getSource() == closeButton){
 				JOptionPane.showMessageDialog(this,"Do you want to close?");

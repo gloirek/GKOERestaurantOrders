@@ -4,18 +4,15 @@
  */
 package restaurant;
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Iterator;
+//import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
+//import java.util.Set;
 import java.util.TreeMap;
-
-
 
 public class OrderTreeMap {
 	private MenuList menuList;
@@ -32,18 +29,14 @@ public class OrderTreeMap {
 		return orders;
 	}
 	/**
-	 * 
+	 * method to add new orders
 	 * @param order - an object of the class Order to be added in the order collection
 	 */
 	public void addOrder(Order order){
 		int id = order.getOrderNum();
 		orders.put(id, order);
 	}
-	/**
-	 * calculate the total bill of a table
-	 * @param table_id
-	 * @return table_total
-	 */
+	
 
 /**
  * method to find an order 
@@ -53,7 +46,7 @@ public class OrderTreeMap {
 	public boolean findTable(int table) throws NoMatchingTableException{
 		boolean found = false;
 		for (Map.Entry<Integer, Order> entry : orders.entrySet()){
-			found = false;
+			//found = false;
 			if(table == entry.getValue().getTableNum()){
 					found = true;
 					return found;
